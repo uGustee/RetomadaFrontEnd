@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora e Corretor Ortográfico</title>
+    <link rel="stylesheet" href="https://unpkg.com/pell/dist/pell.min.css">
+</head>
+<body>
 
+    <h1>Calculadora</h1>
+    <form name="calculator">
+        <input type="text" name="display" id="display" readonly>
+        <br>
+        <input type="button" value="7" onclick="addToDisplay('7')">
+        <input type="button" value="8" onclick="addToDisplay('8')">
+        <input type="button" value="9" onclick="addToDisplay('9')">
+        <input type="button" value="/" onclick="addToDisplay('/')">
+        <br>
+        <input type="button" value="4" onclick="addToDisplay('4')">
+        <input type="button" value="5" onclick="addToDisplay('5')">
+        <input type="button" value="6" onclick="addToDisplay('6')">
+        <input type="button" value="-" onclick="addToDisplay('-')">
+        <br>
+        <input type="button" value="1" onclick="addToDisplay('1')">
+        <input type="button" value="2" onclick="addToDisplay('2')">
+        <input type="button" value="3" onclick="addToDisplay('3')">
+        <input type="button" value="+" onclick="addToDisplay('+')">
+        <br>
+        <input type="button" value="0" onclick="addToDisplay('0')">
+        <input type="button" value="." onclick="addToDisplay('.')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="C" onclick="clearDisplay()">
+    </form>
+
+    <h1>Corretor Ortográfico</h1>
+    <div id="editor" contenteditable="true"></div>
+    <button onclick="checkSpelling()">Verificar Ortografia</button>
+    <div id="correction"></div>
+
+    <script src="https://unpkg.com/pell"></script>
+    <script>
+        // Funções da calculadora
+        function addToDisplay(value) {
+            document.calculator.display.value += value;
+        }
+
+        function calculate() {
+            try {
+                document.calculator.display.value = eval(document.calculator.display.value);
+            } catch (error) {
+                document.calculator.display.value = 'Erro';
+            }
+        }
+
+        function clearDisplay() {
+            document.calculator.display.value = '';
+        }
+
+        // Funções do corretor ortográfico
+        const editor = pell.init({
+            element: document.getElementById('editor'),
+            onChange: text => {
+                // Pode adicionar lógica adicional aqui se necessário
+            }
+        });
+
+        function checkSpelling() {
+            const text = editor.content.innerHTML;
+            // Lógica para verificar a ortografia, você pode usar uma API de correção ortográfica aqui
+            // Neste exemplo, vou apenas exibir o texto corrigido na div de correção
+            const correctedText = text.replace(/calculadora/gi, '***calculadora***'); // Exemplo de correção
+            document.getElementById('correction').innerText = correctedText;
+        }
+    </script>
+
+</body>
+</html>
